@@ -1,0 +1,51 @@
+.global _start
+_start:
+
+	MOV R1, #6
+	BL FIBONACCI
+	B FINAL
+	
+	
+	FIBONACCI:
+		PUSH {R1,R2,R3,R4}
+		
+		CMP R1, #0
+		BEQ BASE1
+
+		CMP R1, #1
+		BEQ BASE2
+		
+		MOV R3, #0
+		MOV R4, #1
+		MOV R0, #0
+		MOV R2, #2
+	
+	FOR:
+	CMP R2, R1
+	BGT RETURN
+
+	ADD R0, R3, R4
+
+	MOV R3, R4
+	MOV R4, R0
+
+	ADD R2,  R2, #1 
+	B FOR 
+	
+	BASE1:
+	MOV R0, #0
+	B END
+	
+	BASE2:
+	MOV R0, #1
+	B END
+
+	RETURN:
+	MOV R0, R4
+
+	END:
+	POP {R1,R2,R3,R4}
+	MOV PC, LR
+
+	FINAL:
+	
